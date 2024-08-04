@@ -11,7 +11,6 @@ import {
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 const RESOLUTIONS = ["0.5x", "1x", "1.5x", "2x"];
-
 const ASPECT_RATIO = ["9:18", "9:16", "4:3", "3:4", "1:1", "4:5"];
 
 const DropdownOptions = () => {
