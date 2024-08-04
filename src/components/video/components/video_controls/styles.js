@@ -86,6 +86,12 @@ export const PlayIcon = styled.img`
   margin-right: 0.5rem;
 `;
 
+export const SoundIcon = styled.img`
+  width: 14px;
+  height: fit-content;
+  margin-right: 0.5rem;
+`;
+
 export const Slider = styled(VideoSlider)`
   border-radius: 6px;
   width: 100%;
@@ -136,25 +142,27 @@ export const MuteSlider = styled(VideoSlider)`
   width: 45px;
   cursor: pointer;
   .ant-slider-track {
-    height: 2px !important;
+    height: 3px !important;
     border-radius: 0px;
   }
   .ant-slider-track {
     background-color: #fff;
-    height: 2px !important;
+    height: 3px !important;
     border-radius: 6px;
   }
   .ant-slider-handle {
-    height: 8px !important;
+    height: 6px !important;
     transform: none !important;
-    width: 8px !important;
+    width: 6px !important;
     background-color: #fff !important;
     box-shadow: none !important;
     border: none !important;
     border-radius: 50%;
+    position: relative;
+    top: -1.3px;
   }
   .ant-slider-rail {
-    height: 2px;
+    height: 3px;
     width: calc(100% + 0px);
   }
 `;

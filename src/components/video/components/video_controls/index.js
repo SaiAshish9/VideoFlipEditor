@@ -10,8 +10,10 @@ import {
   SoundContainer,
   ControlsContainer,
   MuteSlider,
+  SoundIcon,
 } from "./styles";
 import PlayImg from "assets/play.svg";
+import SoundImg from "assets/sound.svg";
 
 const VideoControls = () => {
   return (
@@ -26,6 +28,7 @@ const VideoControls = () => {
           <TotalTimeDuration>00:15:17</TotalTimeDuration>
         </TimelineTextContainer>
         <SoundContainer>
+          <SoundIcon alt="img" src={SoundImg} />
           <MuteSlider tooltip={{ formatter: null }} />
         </SoundContainer>
       </ControlsContainer>
