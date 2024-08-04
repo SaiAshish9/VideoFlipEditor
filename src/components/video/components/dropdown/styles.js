@@ -28,6 +28,15 @@ export const DropdownList = styled.div`
   border: 1px solid rgba(69, 71, 78, 1);
   z-index: 100;
   background-color: rgba(55, 57, 63, 1);
+  max-height: 7.3rem;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+  }
 `;
 
 export const DropdownListItem = styled.p`
