@@ -20,6 +20,9 @@ export const DropdownContainer = styled.div`
   padding: 7px 10px;
   margin-right: 5px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const DropdownText = styled.p`
@@ -28,4 +31,13 @@ export const DropdownText = styled.p`
   font-weight: 200;
   padding: 0px;
   margin: 0px;
+`;
+
+export const DropdownTextSpan = styled.p`
+  font-size: 12px;
+  color: rgba(155, 166, 171, 1);
+  font-weight: 200;
+  padding: 0px;
+  margin: 0px;
+  margin-left: 0.25rem;
 `;

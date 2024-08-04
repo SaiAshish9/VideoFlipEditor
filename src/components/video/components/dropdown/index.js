@@ -3,6 +3,7 @@ import {
   DropdownContainer,
   DropdownParentContainer,
   DropdownText,
+  DropdownTextSpan,
 } from "./styles";
 
 const DropdownOptions = () => {
@@ -10,9 +11,11 @@ const DropdownOptions = () => {
     <DropdownParentContainer>
       <DropdownContainer>
         <DropdownText>Playback speed</DropdownText>
+        <DropdownTextSpan>1x</DropdownTextSpan>
       </DropdownContainer>
       <DropdownContainer>
         <DropdownText>Cropper Aspect Ratio</DropdownText>
+        <DropdownTextSpan>9:16</DropdownTextSpan>
       </DropdownContainer>
     </DropdownParentContainer>
   );
