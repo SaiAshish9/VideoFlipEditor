@@ -14,11 +14,37 @@ export const DropdownParentContainer = styled.div`
   margin-top: 0.25rem;
 `;
 
+export const DropdownContainerWrapper = styled.div`
+  position: relative;
+  margin-right: 5px;
+  height: 26px;
+`;
+
+export const DropdownList = styled.div`
+  position: absolute;
+  width: 100%;
+  border-radius: 5px;
+  top: 36px;
+  border: 1px solid rgba(69, 71, 78, 1);
+`;
+
+export const DropdownListItem = styled.p`
+  max-width: 100%;
+  padding: 7px 10px;
+  font-size: 12px;
+  color: #fff;
+  font-weight: 200;
+  margin: 0px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(69, 71, 78, 1);
+  }
+`;
+
 export const DropdownContainer = styled.div`
   border-radius: 5px;
   border: 1px solid rgba(69, 71, 78, 1);
   padding: 7px 10px;
-  margin-right: 5px;
   cursor: pointer;
   display: flex;
   align-items: center;

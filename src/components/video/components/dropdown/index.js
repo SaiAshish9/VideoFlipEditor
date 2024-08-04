@@ -1,25 +1,73 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   DropdownContainer,
   DropdownParentContainer,
   DropdownText,
   DropdownTextSpan,
+  DropdownContainerWrapper,
+  DropdownList,
+  DropdownListItem,
 } from "./styles";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
+const RESOLUTIONS = ["0.5x", "1x", "1.5x", "2x"];
+
+const ASPECT_RATIO = ["9:18", "9:16", "4:3", "3:4", "1:1", "4:5"];
+
 const DropdownOptions = () => {
+  const [selectedResolution, setSelectedResolution] = useState("1x");
+  const [selectedAspectRatio, setSelectedAspectRatio] = useState("9:16");
+  const [isResolutionDropdownVisible, setIsResolutionDropdownVisible] =
+    useState(false);
+  const [isAspectRatioDropdownVisible, setIsAspectRatioDropdown] =
+    useState(false);
+
   return (
     <DropdownParentContainer>
-      <DropdownContainer>
-        <DropdownText>Playback speed</DropdownText>
-        <DropdownTextSpan>1x</DropdownTextSpan>
-        <IoIosArrowDown size={13} color="#fff" />
-      </DropdownContainer>
-      <DropdownContainer>
-        <DropdownText>Cropper Aspect Ratio</DropdownText>
-        <DropdownTextSpan>9:16</DropdownTextSpan>
-        <IoIosArrowDown size={13} color="#fff" />
-      </DropdownContainer>
+      <DropdownContainerWrapper>
+        <DropdownContainer>
+          <DropdownText>Playback speed</DropdownText>
+          <DropdownTextSpan>{selectedResolution}</DropdownTextSpan>
+          <IoIosArrowDown size={13} color="#fff" />
+        </DropdownContainer>
+        {isResolutionDropdownVisible && (
+          <DropdownList>
+            {RESOLUTIONS.map((item, _) => (
+              <DropdownListItem
+                onClick={() => {
+                  setSelectedResolution(item);
+                  setIsResolutionDropdownVisible(false);
+                }}
+                key={item}
+              >
+                {item}
+              </DropdownListItem>
+            ))}
+          </DropdownList>
+        )}
+      </DropdownContainerWrapper>
+      <DropdownContainerWrapper>
+        <DropdownContainer>
+          <DropdownText>Cropper Aspect Ratio</DropdownText>
+          <DropdownTextSpan>{selectedAspectRatio}</DropdownTextSpan>
+          <IoIosArrowDown size={13} color="#fff" />
+        </DropdownContainer>
+        {isAspectRatioDropdownVisible && (
+          <DropdownList>
+            {ASPECT_RATIO.map((item, _) => (
+              <DropdownListItem
+                onClick={() => {
+                  setSelectedAspectRatio(item);
+                  setIsAspectRatioDropdown(false);
+                }}
+                key={item}
+              >
+                {item}
+              </DropdownListItem>
+            ))}
+          </DropdownList>
+        )}
+      </DropdownContainerWrapper>
     </DropdownParentContainer>
   );
 };
