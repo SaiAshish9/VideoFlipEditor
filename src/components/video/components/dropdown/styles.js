@@ -26,6 +26,8 @@ export const DropdownList = styled.div`
   border-radius: 5px;
   top: 36px;
   border: 1px solid rgba(69, 71, 78, 1);
+  z-index: 100;
+  background-color: rgba(55, 57, 63, 1);
 `;
 
 export const DropdownListItem = styled.p`
