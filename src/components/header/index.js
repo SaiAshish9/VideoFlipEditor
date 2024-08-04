@@ -1,8 +1,26 @@
-import React from "react";
-import { Container } from "./styles";
+import React, { useState } from "react";
+import { Container, TabContainer } from "./styles";
+import { Tab } from "./components";
+import { TABS } from "constants/index";
 
 const Header = () => {
-  return <Container>Cropper</Container>;
+  const [selected, setSelected] = useState(TABS[0].title);
+
+  return (
+    <Container>
+      <p>Cropper</p>
+      <TabContainer>
+        {TABS.map((item, _) => (
+          <Tab
+            key={item.title}
+            tag={item}
+            selected={selected}
+            onClick={() => setSelected(item.title)}
+          />
+        ))}
+      </TabContainer>
+    </Container>
+  );
 };
 
 export default Header;
