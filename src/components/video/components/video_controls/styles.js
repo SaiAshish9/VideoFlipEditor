@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  height: 100vh;
-  width: 100%;
+  padding-top: 0.5rem;
 `;
+
+export const PlayIcon = styled.img``;

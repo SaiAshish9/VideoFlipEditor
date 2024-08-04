@@ -1,14 +1,13 @@
 import React from "react";
-import { Container, VideoContainer, VideoContent } from "./styles";
+import { Container } from "./styles";
 import { Header } from "components";
+import VideoPlayer from "components/video";
 
 function App() {
   return (
     <Container>
       <Header />
-      <VideoContainer>
-        <VideoContent></VideoContent>
-      </VideoContainer>
+      <VideoPlayer />
     </Container>
   );
 }
