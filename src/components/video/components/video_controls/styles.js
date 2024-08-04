@@ -134,7 +134,6 @@ export const ControlsContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-top: 0.5rem;
 `;
 
 export const MuteSlider = styled(VideoSlider)`
