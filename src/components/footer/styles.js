@@ -38,7 +38,7 @@ export const ButtonContainer = styled.div`
 export const CancelButton = styled.div`
   background-color: rgba(69, 71, 78, 1);
   border-radius: 10px;
-  padding: 9px 10px;
+  padding: 9px 20px;
   color: #fff;
   font-size: 14px;
   font-weight: 500;
