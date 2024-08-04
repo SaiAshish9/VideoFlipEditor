@@ -33,6 +33,7 @@ const DropdownOptions = () => {
           <DropdownList>
             {RESOLUTIONS.map((item, _) => (
               <DropdownListItem
+                selected={+(selectedResolution === item)}
                 onClick={() => {
                   setSelectedResolution(item);
                   setIsResolutionDropdownVisible(false);
@@ -57,6 +58,7 @@ const DropdownOptions = () => {
           <DropdownList>
             {ASPECT_RATIO.map((item, _) => (
               <DropdownListItem
+                selected={+(selectedAspectRatio === item)}
                 onClick={() => {
                   setSelectedAspectRatio(item);
                   setIsAspectRatioDropdownVisible(false);
