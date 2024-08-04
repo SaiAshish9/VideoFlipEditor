@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Overlay, VideoContainer, VideoContent } from "./styles";
+import { GridCell, Overlay, VideoContainer, VideoContent } from "./styles";
 import { DropdownOptions, VideoControls } from "./components";
 import ReactPlayer from "react-player";
 
@@ -45,8 +45,8 @@ const VideoPlayer = () => {
   };
 
   useEffect(() => {
-    const initialX = (parentWidth - 305) / 2;
-    const initialY = (parentHeight - 305) / 2;
+    const initialX = (parentWidth - 307) / 2;
+    const initialY = (parentHeight - 307) / 2;
     setPosition({ x: initialX, y: initialY });
   }, [parentWidth, parentHeight]);
 
@@ -74,21 +74,9 @@ const VideoPlayer = () => {
           onMouseUp={handleMouseUp}
           left={`${position.x}px`}
         >
-          <div style={{ height: "305px", width: "305px", display: "flex" }}>
-            {Array.from({ length: 3 }, (_, i) => i + 1).forEach(
-              (item, key) => (
-                <div
-                  key={item}
-                  style={{
-                    height: "100%",
-                    width: `${305 / 2}px`,
-                    borderRight: item < 2 ? "1px solid #fff" : "none",
-                    position: "relative",
-                  }}
-                />
-              )
-            )}
-          </div>
+          {[...Array(9)].map((_, i) => (
+            <GridCell key={i} />
+          ))}
         </Overlay>
       </VideoContent>
       <VideoControls />
