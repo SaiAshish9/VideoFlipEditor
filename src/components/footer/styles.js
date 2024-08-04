@@ -25,7 +25,7 @@ export const Button = styled.div`
   font-weight: 500;
   cursor: pointer;
   margin-right: 10px;
-  opacity: 0.5;
+  opacity: ${({ selected }) => (selected ? "1" : "0.5")};
 `;
 
 export const ButtonContainer = styled.div`
@@ -33,4 +33,14 @@ export const ButtonContainer = styled.div`
   align-items: cneter;
   justify-content: space-between;
   width: fit-content;
+`;
+
+export const CancelButton = styled.div`
+  background-color: rgba(69, 71, 78, 1);
+  border-radius: 10px;
+  padding: 9px 10px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
 `;
