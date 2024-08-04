@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   display: flex;
@@ -39,6 +39,12 @@ export const DropdownListItem = styled.p`
   &:hover {
     background-color: rgba(69, 71, 78, 1);
   }
+  ${({ selected }) =>
+    selected
+      ? css`
+          background-color: rgba(69, 71, 78, 1);
+        `
+      : css``}
 `;
 
 export const DropdownContainer = styled.div`

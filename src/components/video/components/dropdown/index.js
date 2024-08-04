@@ -24,10 +24,16 @@ const DropdownOptions = () => {
   return (
     <DropdownParentContainer>
       <DropdownContainerWrapper>
-        <DropdownContainer onClick={() => setIsResolutionDropdownVisible(true)}>
+        <DropdownContainer
+          onClick={() => setIsResolutionDropdownVisible((s) => !s)}
+        >
           <DropdownText>Playback speed</DropdownText>
           <DropdownTextSpan>{selectedResolution}</DropdownTextSpan>
-          <IoIosArrowDown size={13} color="#fff" />
+          {isResolutionDropdownVisible ? (
+            <IoIosArrowUp size={13} color="#fff" />
+          ) : (
+            <IoIosArrowDown size={13} color="#fff" />
+          )}
         </DropdownContainer>
         {isResolutionDropdownVisible && (
           <DropdownList>
@@ -48,11 +54,15 @@ const DropdownOptions = () => {
       </DropdownContainerWrapper>
       <DropdownContainerWrapper>
         <DropdownContainer
-          onClick={() => setIsAspectRatioDropdownVisible(true)}
+          onClick={() => setIsAspectRatioDropdownVisible((s) => !s)}
         >
           <DropdownText>Cropper Aspect Ratio</DropdownText>
           <DropdownTextSpan>{selectedAspectRatio}</DropdownTextSpan>
-          <IoIosArrowDown size={13} color="#fff" />
+          {isAspectRatioDropdownVisible ? (
+            <IoIosArrowUp size={13} color="#fff" />
+          ) : (
+            <IoIosArrowDown size={13} color="#fff" />
+          )}{" "}
         </DropdownContainer>
         {isAspectRatioDropdownVisible && (
           <DropdownList>
