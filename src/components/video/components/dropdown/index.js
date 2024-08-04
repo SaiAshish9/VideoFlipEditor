@@ -19,13 +19,13 @@ const DropdownOptions = () => {
   const [selectedAspectRatio, setSelectedAspectRatio] = useState("9:16");
   const [isResolutionDropdownVisible, setIsResolutionDropdownVisible] =
     useState(false);
-  const [isAspectRatioDropdownVisible, setIsAspectRatioDropdown] =
+  const [isAspectRatioDropdownVisible, setIsAspectRatioDropdownVisible] =
     useState(false);
 
   return (
     <DropdownParentContainer>
       <DropdownContainerWrapper>
-        <DropdownContainer>
+        <DropdownContainer onClick={() => setIsResolutionDropdownVisible(true)}>
           <DropdownText>Playback speed</DropdownText>
           <DropdownTextSpan>{selectedResolution}</DropdownTextSpan>
           <IoIosArrowDown size={13} color="#fff" />
@@ -47,7 +47,9 @@ const DropdownOptions = () => {
         )}
       </DropdownContainerWrapper>
       <DropdownContainerWrapper>
-        <DropdownContainer>
+        <DropdownContainer
+          onClick={() => setIsAspectRatioDropdownVisible(true)}
+        >
           <DropdownText>Cropper Aspect Ratio</DropdownText>
           <DropdownTextSpan>{selectedAspectRatio}</DropdownTextSpan>
           <IoIosArrowDown size={13} color="#fff" />
@@ -58,7 +60,7 @@ const DropdownOptions = () => {
               <DropdownListItem
                 onClick={() => {
                   setSelectedAspectRatio(item);
-                  setIsAspectRatioDropdown(false);
+                  setIsAspectRatioDropdownVisible(false);
                 }}
                 key={item}
               >
