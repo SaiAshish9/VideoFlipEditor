@@ -34,7 +34,6 @@ const VideoControls = () => {
         </TimelineTextContainer>
         <SoundContainer>
           <SoundIcon alt="img" src={SoundImg} />
-
           <MuteSlider tooltip={{ formatter: null }} />
         </SoundContainer>
       </ControlsContainer>

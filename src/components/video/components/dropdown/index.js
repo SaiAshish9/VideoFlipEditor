@@ -15,7 +15,7 @@ const ASPECT_RATIO = ["9:18", "9:16", "4:3", "3:4", "1:1", "4:5"];
 
 const DropdownOptions = () => {
   const [selectedResolution, setSelectedResolution] = useState("1x");
-  const [selectedAspectRatio, setSelectedAspectRatio] = useState("9:16");
+  const [selectedAspectRatio, setSelectedAspectRatio] = useState("1:1");
   const [isResolutionDropdownVisible, setIsResolutionDropdownVisible] =
     useState(false);
   const [isAspectRatioDropdownVisible, setIsAspectRatioDropdownVisible] =

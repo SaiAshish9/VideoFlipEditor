@@ -66,14 +66,30 @@ const VideoPlayer = () => {
           url={
             "https://cdn.loom.com/sessions/thumbnails/313bf71d20ca47b2a35b6634cefdb761-00001.mp4"
           }
-          playing={true}
+          playing={false}
         />
         <Overlay
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           left={`${position.x}px`}
-        />
+        >
+          <div style={{ height: "305px", width: "305px", display: "flex" }}>
+            {Array.from({ length: 3 }, (_, i) => i + 1).forEach(
+              (item, key) => (
+                <div
+                  key={item}
+                  style={{
+                    height: "100%",
+                    width: `${305 / 2}px`,
+                    borderRight: item < 2 ? "1px solid #fff" : "none",
+                    position: "relative",
+                  }}
+                />
+              )
+            )}
+          </div>
+        </Overlay>
       </VideoContent>
       <VideoControls />
       <DropdownOptions />
