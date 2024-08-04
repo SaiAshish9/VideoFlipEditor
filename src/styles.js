@@ -7,3 +7,9 @@ export const Container = styled.div`
   overflow: hidden;
   max-width: 100%;
 `;
+
+export const Content = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+`;

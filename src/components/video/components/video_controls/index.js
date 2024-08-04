@@ -14,12 +14,17 @@ import {
 } from "./styles";
 import PlayImg from "assets/play.svg";
 import SoundImg from "assets/sound.svg";
+import { IoIosPause } from "react-icons/io";
 
 const VideoControls = () => {
   return (
     <Container>
       <SliderContainer>
-        <PlayIcon src={PlayImg} alt="img" />
+        {1 ? (
+          <PlayIcon src={PlayImg} alt="img" />
+        ) : (
+          <IoIosPause size={24} color="#fff" />
+        )}
         <Slider tooltip={{ formatter: null }} />
       </SliderContainer>
       <ControlsContainer>
@@ -29,6 +34,7 @@ const VideoControls = () => {
         </TimelineTextContainer>
         <SoundContainer>
           <SoundIcon alt="img" src={SoundImg} />
+
           <MuteSlider tooltip={{ formatter: null }} />
         </SoundContainer>
       </ControlsContainer>

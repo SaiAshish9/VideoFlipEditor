@@ -1,15 +1,16 @@
 import React from "react";
-import { Container } from "./styles";
-import { Header } from "components";
-import VideoPlayer from "components/video";
-import 'antd/dist/reset.css';
-import { Footer } from "components";
+import { Container, Content } from "./styles";
+import { Header, Footer, VideoPlayer, Preview } from "components";
+import "antd/dist/reset.css";
 
 function App() {
   return (
     <Container>
       <Header />
-      <VideoPlayer />
+      <Content>
+        <VideoPlayer />
+        <Preview />
+      </Content>
       <Footer />
     </Container>
   );
