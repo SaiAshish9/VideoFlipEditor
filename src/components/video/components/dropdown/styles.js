@@ -40,4 +40,5 @@ export const DropdownTextSpan = styled.p`
   padding: 0px;
   margin: 0px;
   margin-left: 0.25rem;
+  margin-right: 0.25rem;
 `;
