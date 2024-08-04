@@ -111,6 +111,7 @@ export const CurrentTimelineText = styled.p`
   padding: 0px;
   margin: 0px;
   padding-right: 0.25rem;
+  font-weight: 200;
   border-right: 1px solid rgba(255, 255, 255, 0.5);
 `;
 
@@ -118,6 +119,7 @@ export const TotalTimeDuration = styled.p`
   font-size: 12px;
   padding: 0px;
   margin: 0px;
+  font-weight: 200;
   color: rgba(255, 255, 255, 0.5);
   padding-left: 0.25rem;
 `;
