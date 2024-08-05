@@ -16,7 +16,6 @@ export const Container = styled.div`
 
   .ant-slider {
     margin: 11px 0px;
-    overflow: hidden;
   }
 
   .ant-slider-track {
@@ -65,7 +64,7 @@ export const Container = styled.div`
 
   .ant-slider-rail {
     background-color: rgba(255, 255, 255, 0.23) !important;
-    width: calc(100% + 5px);
+    width: calc(100% - 0px);
   }
   .ant-slider-step {
   }
@@ -81,15 +80,18 @@ export const Container = styled.div`
 `;
 
 export const PlayIcon = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-right: 0.5rem;
+  width: 16px;
+  height: 16px;
+  margin-right: 0.25rem;
+  cursor: pointer;
+  margin-left: 0.2rem;
 `;
 
 export const SoundIcon = styled.img`
   width: 14px;
   height: fit-content;
   margin-right: 0.5rem;
+  cursor: pointer;
 `;
 
 export const Slider = styled(VideoSlider)`

@@ -26,6 +26,11 @@ const VideoPlayer = React.forwardRef(
     const [dragging, setDragging] = useState(false);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
     const [selectedAspectRatio, setSelectedAspectRatio] = useState("1:1");
+    const [isStreamStarted, setIsStreamStarted] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [duration, setDuration] = useState(null);
+    const [progress, setProgress] = useState(0);
+    const progressBarRef = useRef();
 
     const captureFrame = () => {
       if (
@@ -99,21 +104,46 @@ const VideoPlayer = React.forwardRef(
     }, [playerWidth, VIDEO_PLAYER_HEIGHT]);
 
     const handleAspectRatioChange = useCallback(() => {
-      setPlayerWidth(RESOLVED_VIDEO_WIDTH(selectedAspectRatio));
       if (previewImage) {
         setPreviewImage("Empty");
       }
       if (videoBlobUrl) {
         setVideoBlobUrl("Empty");
       }
+
+      if (isStreamStarted) setIsPlaying(false);
+      setPlayerWidth(RESOLVED_VIDEO_WIDTH(selectedAspectRatio));
     }, [selectedAspectRatio]);
 
     useEffect(() => {
       handleAspectRatioChange();
     }, [selectedAspectRatio]);
 
-    function handleProgress() {
-      captureFrame();
+    function handleProgress(value) {
+      if (isStreamStarted) {
+        captureFrame();
+      }
+      progressBarRef.current?.setProgressBarValue(
+        value.playedSeconds / duration
+      );
+    }
+
+    function handleStart() {
+      setIsStreamStarted(true);
+      setIsPlaying(true);
+    }
+
+    function onEnded() {
+      setIsStreamStarted(false);
+      setIsPlaying(false);
+    }
+
+    const handleDuration = (duration) => {
+      setDuration(duration);
+    };
+
+    function onSliderChange(p) {
+      ref.current?.seekTo(p);
     }
 
     return (
@@ -121,16 +151,17 @@ const VideoPlayer = React.forwardRef(
         <VideoContent>
           <ReactPlayer
             ref={ref}
-            muted={!false}
-            loop={true}
-            onEnded={() => {}}
+            muted={true}
+            loop={false}
+            onEnded={onEnded}
             onProgress={handleProgress}
+            onDuration={handleDuration}
             height={VIDEO_PLAYER_HEIGHT}
             width={"auto"}
             url={
               "https://cdn.pixabay.com/video/2020/01/05/30902-383991325_large.mp4"
             }
-            playing={true}
+            playing={isPlaying}
             config={{
               file: {
                 attributes: {
@@ -138,6 +169,7 @@ const VideoPlayer = React.forwardRef(
                 },
               },
             }}
+            onStart={handleStart}
           />
           <Overlay
             onMouseDown={handleMouseDown}
@@ -151,7 +183,15 @@ const VideoPlayer = React.forwardRef(
             ))}
           </Overlay>
         </VideoContent>
-        <VideoControls />
+        <VideoControls
+          duration={duration}
+          setIsPlaying={setIsPlaying}
+          isPlaying={isPlaying}
+          progress={progress}
+          onSliderChange={onSliderChange}
+          ref={progressBarRef}
+          setProgress={setProgress}
+        />
         <DropdownOptions
           selectedAspectRatio={selectedAspectRatio}
           setSelectedAspectRatio={setSelectedAspectRatio}

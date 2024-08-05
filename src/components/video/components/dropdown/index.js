@@ -11,7 +11,10 @@ import {
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { RESOLUTIONS, ASPECT_RATIO } from "constants/index";
 
-const DropdownOptions = ({ selectedAspectRatio, setSelectedAspectRatio }) => {
+const DropdownOptions = ({
+  selectedAspectRatio,
+  setSelectedAspectRatio,
+}) => {
   const [selectedResolution, setSelectedResolution] = useState("1x");
   const [isResolutionDropdownVisible, setIsResolutionDropdownVisible] =
     useState(false);
