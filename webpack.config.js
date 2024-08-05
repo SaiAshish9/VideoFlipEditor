@@ -46,6 +46,7 @@ module.exports = {
   devServer: {
     hot: true,
     liveReload: true,
+    devtool: false,
     static: {
       directory: path.join(__dirname, "public"),
     },
