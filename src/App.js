@@ -25,6 +25,7 @@ const App = () => {
   const [selectedHeaderItem, setSelectedHeaderItem] = useState(TABS[0].title);
   const [recordedData, setRecordedData] = useState([]);
   // https://raw.githubusercontent.com/SaiAshish9/VideoFlipEditor-Assets/main/data.json
+  const [currentFrame, setCurrentFrame] = useState(0);
 
   return (
     <Container>
@@ -77,10 +78,15 @@ const App = () => {
           {recordedData?.length > 0 && (
             <>
               <VideoContent>
-                <SessionContent />
+                <SessionContent
+                  selectedHeaderItem={selectedHeaderItem}
+                  currentFrame={currentFrame}
+                  setCurrentFrame={setCurrentFrame}
+                  recordedData={recordedData}
+                />
               </VideoContent>
               <pre>
-                <p>Data: </p> <br />
+                <p>Frames: </p> <br />
                 <code>{JSON.stringify(recordedData, null, 2)}</code>
               </pre>
             </>
