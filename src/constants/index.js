@@ -4,8 +4,8 @@ import {
   VIDEO_PLAYER_WIDTH,
   RESOLUTIONS,
   ASPECT_RATIO,
-  RESOLVED_VIDEO_WIDTH,
 } from "./videoDimensions";
+import RESOLVED_VIDEO_WIDTH from "./resolvedVideoWidth";
 
 export {
   TABS,

@@ -1,11 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { GridCell, Overlay, VideoContainer, VideoContent } from "./styles";
-import {
-  DropdownOptions,
-  VideoControls,
-} from "./components";
+import { DropdownOptions, VideoControls } from "./components";
 import ReactPlayer from "react-player";
 import { VIDEO_PLAYER_WIDTH, VIDEO_PLAYER_HEIGHT } from "constants/index";
+import { RESOLVED_VIDEO_WIDTH } from "constants";
 
 const VideoPlayer = () => {
   const ref = useRef(null);
@@ -13,6 +11,8 @@ const VideoPlayer = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [selectedAspectRatio, setSelectedAspectRatio] = useState("1:1");
+  const [playerWidth, setPlayerWidth] = useState(VIDEO_PLAYER_HEIGHT);
 
   const handleMouseDown = (e) => {
     setDragging(true);
@@ -30,7 +30,8 @@ const VideoPlayer = () => {
 
       // Ensure the overlay doesn't go beyond the horizontal boundaries
       if (newX < 0) newX = 0;
-      if (newX + VIDEO_PLAYER_HEIGHT > VIDEO_PLAYER_WIDTH) newX = VIDEO_PLAYER_WIDTH - VIDEO_PLAYER_HEIGHT;
+      if (newX + playerWidth > VIDEO_PLAYER_WIDTH)
+        newX = VIDEO_PLAYER_WIDTH - playerWidth;
 
       setPosition({ x: newX, y: newY });
     }
@@ -42,10 +43,18 @@ const VideoPlayer = () => {
   };
 
   useEffect(() => {
-    const initialX = (VIDEO_PLAYER_WIDTH - VIDEO_PLAYER_HEIGHT) / 2;
+    const initialX = (VIDEO_PLAYER_WIDTH - playerWidth) / 2;
     const initialY = 0;
     setPosition({ x: initialX, y: initialY });
-  }, [VIDEO_PLAYER_WIDTH, VIDEO_PLAYER_HEIGHT]);
+  }, [playerWidth, VIDEO_PLAYER_HEIGHT]);
+
+  const handleAspectRatioChange = useCallback(() => {
+    setPlayerWidth(RESOLVED_VIDEO_WIDTH(selectedAspectRatio));
+  }, [selectedAspectRatio]);
+
+  useEffect(() => {
+    handleAspectRatioChange();
+  }, [selectedAspectRatio]);
 
   // move to draggable
 
@@ -70,14 +79,18 @@ const VideoPlayer = () => {
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           left={`${position.x}px`}
+          width={playerWidth}
         >
           {[...Array(9)].map((_, i) => (
-            <GridCell key={i} />
+            <GridCell key={i} width={playerWidth} />
           ))}
         </Overlay>
       </VideoContent>
       <VideoControls />
-      <DropdownOptions />
+      <DropdownOptions
+        selectedAspectRatio={selectedAspectRatio}
+        setSelectedAspectRatio={setSelectedAspectRatio}
+      />
     </VideoContainer>
   );
 };
