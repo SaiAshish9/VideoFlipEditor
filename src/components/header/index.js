@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, TabContainer } from "./styles";
 import { Tab } from "./components";
 import { TABS } from "constants/index";
 
-const Header = () => {
-  const [selected, setSelected] = useState(TABS[0].title);
-
+const Header = ({ selected, setSelected }) => {
   return (
     <Container>
       <p>Cropper</p>

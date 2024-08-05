@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Container, Content } from "./styles";
 import { Header, Footer, VideoPlayer, Preview } from "components";
-import { VIDEO_PLAYER_HEIGHT } from "constants/index";
+import { VIDEO_PLAYER_HEIGHT, TABS } from "constants/index";
 import "antd/dist/reset.css";
 
 const App = () => {
@@ -15,43 +15,51 @@ const App = () => {
     useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStreamStarted, setIsStreamStarted] = useState(false);
+  const [selectedHeaderItem, setSelectedHeaderItem] = useState(TABS[0].title);
 
   return (
     <Container>
-      <Header />
-      <Content>
-        <VideoPlayer
-          setPlayerWidth={setPlayerWidth}
-          playerWidth={playerWidth}
-          ref={combinedRefs}
-          setPreviewImage={setPreviewImage}
-          previewImage={previewImage}
-          setVideoBlobUrl={setVideoBlobUrl}
-          videoBlobUrl={videoBlobUrl}
-          isPlaying={isPlaying}
-          setIsPlaying={setIsPlaying}
-          isStartCropperClicked={isStartCropperClicked}
-          isStreamStarted={isStreamStarted}
-          setIsStreamStarted={setIsStreamStarted}
-        />
-        <Preview
-          playerWidth={playerWidth}
-          ref={combinedRefs}
-          isStartCropperClicked={isStartCropperClicked}
-          previewImage={previewImage}
-          isPlaying={isPlaying}
-          videoBlobUrl={videoBlobUrl}
-          isStreamStarted={isStreamStarted}
-        />
-      </Content>
-      <Footer
-        isStartCropperClicked={isStartCropperClicked}
-        setIsStartCropperClicked={setIsStartCropperClicked}
-        isRemoveCropperClicked={isRemoveCropperClicked}
-        isGeneratePreviewClicked={isGeneratePreviewClicked}
-        setIsRemoveCropperClicked={setIsRemoveCropperClicked}
-        setIsGeneratePreviewClicked={setIsGeneratePreviewClicked}
+      <Header
+        selected={selectedHeaderItem}
+        setSelected={setSelectedHeaderItem}
       />
+      {selectedHeaderItem === TABS[0].title && (
+        <>
+          <Content>
+            <VideoPlayer
+              setPlayerWidth={setPlayerWidth}
+              playerWidth={playerWidth}
+              ref={combinedRefs}
+              setPreviewImage={setPreviewImage}
+              previewImage={previewImage}
+              setVideoBlobUrl={setVideoBlobUrl}
+              videoBlobUrl={videoBlobUrl}
+              isPlaying={isPlaying}
+              setIsPlaying={setIsPlaying}
+              isStartCropperClicked={isStartCropperClicked}
+              isStreamStarted={isStreamStarted}
+              setIsStreamStarted={setIsStreamStarted}
+            />
+            <Preview
+              playerWidth={playerWidth}
+              ref={combinedRefs}
+              isStartCropperClicked={isStartCropperClicked}
+              previewImage={previewImage}
+              isPlaying={isPlaying}
+              videoBlobUrl={videoBlobUrl}
+              isStreamStarted={isStreamStarted}
+            />
+          </Content>
+          <Footer
+            isStartCropperClicked={isStartCropperClicked}
+            setIsStartCropperClicked={setIsStartCropperClicked}
+            isRemoveCropperClicked={isRemoveCropperClicked}
+            isGeneratePreviewClicked={isGeneratePreviewClicked}
+            setIsRemoveCropperClicked={setIsRemoveCropperClicked}
+            setIsGeneratePreviewClicked={setIsGeneratePreviewClicked}
+          />
+        </>
+      )}
     </Container>
   );
 };

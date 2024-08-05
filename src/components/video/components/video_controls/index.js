@@ -26,6 +26,9 @@ const VideoControls = React.forwardRef(
       progress,
       onSliderChange,
       setProgress,
+      setVolume,
+      volume,
+      onVolumeChange,
     },
     ref
   ) => {
@@ -38,12 +41,6 @@ const VideoControls = React.forwardRef(
     const TOTAL_DURATION = useMemo(() => {
       return Math.round(duration, 10);
     }, [duration]);
-
-    useImperativeHandle(ref, () => ({
-      setProgressBarValue: (val) => {
-        setProgress(val);
-      },
-    }));
 
     const formatDuration = (seconds) => {
       const duration = moment.duration(seconds, "seconds");
@@ -60,6 +57,9 @@ const VideoControls = React.forwardRef(
     useImperativeHandle(ref, () => ({
       setProgressBarValue: (val) => {
         setProgress(val);
+      },
+      setVolumeValue: (val) => {
+        setVolume(val);
       },
     }));
 
@@ -93,7 +93,13 @@ const VideoControls = React.forwardRef(
             </TimelineTextContainer>
             <SoundContainer>
               <SoundIcon alt="img" src={SoundImg} />
-              <MuteSlider tooltip={{ formatter: null }} />
+              <MuteSlider
+                max={1}
+                value={volume}
+                tooltip={{ formatter: null }}
+                onChange={onVolumeChange}
+                step={0.1}
+              />
             </SoundContainer>
           </ControlsContainer>
         }

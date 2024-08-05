@@ -33,9 +33,10 @@ const VideoPlayer = React.forwardRef(
     const [selectedAspectRatio, setSelectedAspectRatio] = useState("1:1");
     const [duration, setDuration] = useState(null);
     const [progress, setProgress] = useState(0);
-    const progressBarRef = useRef();
     const [playbackRate, setPlaybackRate] = useState(1.0);
     const [selectedResolution, setSelectedResolution] = useState("1x");
+    const [volume, setVolume] = useState(0);
+    const progressBarRef = useRef();
 
     const captureFrame = () => {
       if (
@@ -128,7 +129,7 @@ const VideoPlayer = React.forwardRef(
       if (isStreamStarted && isStartCropperClicked) {
         captureFrame();
       }
-      progressBarRef.current?.setProgressBarValue(
+      progressBarRef?.current?.setProgressBarValue(
         value.playedSeconds / duration
       );
     }
@@ -151,6 +152,10 @@ const VideoPlayer = React.forwardRef(
       ref.current?.seekTo(p);
     }
 
+    function onVolumeChange(p) {
+      progressBarRef?.current?.setVolumeValue(p);
+    }
+
     useEffect(() => {
       if (!isStartCropperClicked) {
         setPreviewImage("Empty");
@@ -167,7 +172,7 @@ const VideoPlayer = React.forwardRef(
         <VideoContent>
           <ReactPlayer
             ref={ref}
-            muted={true}
+            volume={volume}
             loop={false}
             onEnded={onEnded}
             onProgress={handleProgress}
@@ -210,6 +215,9 @@ const VideoPlayer = React.forwardRef(
           onSliderChange={onSliderChange}
           ref={progressBarRef}
           setProgress={setProgress}
+          volume={volume}
+          setVolume={setVolume}
+          onVolumeChange={onVolumeChange}
         />
         <DropdownOptions
           selectedAspectRatio={selectedAspectRatio}
