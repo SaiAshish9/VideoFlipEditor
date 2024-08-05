@@ -1,6 +1,12 @@
 import React, { useRef, useState } from "react";
 import { Container, Content, SessionContainer } from "./styles";
-import { Header, Footer, VideoPlayer, Preview } from "components";
+import {
+  Header,
+  Footer,
+  VideoPlayer,
+  Preview,
+  SessionContainer as SessionContent,
+} from "components";
 import { VIDEO_PLAYER_HEIGHT, TABS } from "constants/index";
 import "antd/dist/reset.css";
 import { VideoContent } from "components/video/styles";
@@ -70,7 +76,9 @@ const App = () => {
         <SessionContainer>
           {recordedData?.length > 0 && (
             <>
-              <VideoContent />
+              <VideoContent>
+                <SessionContent />
+              </VideoContent>
               <pre>
                 <p>Data: </p> <br />
                 <code>{JSON.stringify(recordedData, null, 2)}</code>
