@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { VIDEO_PLAYER_WIDTH, VIDEO_PLAYER_HEIGHT } from "constants/index";
 
 export const VideoContainer = styled.div`
   padding-left: 1.5rem;
@@ -7,7 +8,7 @@ export const VideoContainer = styled.div`
 
 export const VideoContent = styled.div`
   background-color: rgba(0, 0, 0, 0.29);
-  height: 307px;
+  height: ${VIDEO_PLAYER_HEIGHT}px;
   width: 450px;
   border-radius: 6px;
   cursor: pointer;
@@ -23,9 +24,9 @@ export const PlayerContainer = styled.div`
 
 export const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.29);
-  height: 307px;
-  max-height: 307px;
-  min-height: 307px;
+  height: ${VIDEO_PLAYER_HEIGHT}px;
+  max-height: ${VIDEO_PLAYER_HEIGHT}px;
+  min-height: ${VIDEO_PLAYER_HEIGHT}px;
   width: 307px;
   max-width: 307px;
   min-width: 307px;
@@ -43,7 +44,7 @@ export const Overlay = styled.div`
 
 export const GridCell = styled.div`
   width: calc(305px / 3);
-  height: calc(305px / 3);
+  height: calc(${VIDEO_PLAYER_HEIGHT - 2}px / 3);
   border: 0.5px dotted #fff;
   box-sizing: border-box;
 `;

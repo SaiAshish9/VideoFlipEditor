@@ -1,10 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import { GridCell, Overlay, VideoContainer, VideoContent } from "./styles";
-import { DropdownOptions, VideoControls } from "./components";
+import {
+  DropdownOptions,
+  VideoControls,
+} from "./components";
 import ReactPlayer from "react-player";
-
-const parentHeight = 307;
-const parentWidth = 450;
+import { VIDEO_PLAYER_WIDTH, VIDEO_PLAYER_HEIGHT } from "constants/index";
 
 const VideoPlayer = () => {
   const ref = useRef(null);
@@ -29,11 +30,7 @@ const VideoPlayer = () => {
 
       // Ensure the overlay doesn't go beyond the horizontal boundaries
       if (newX < 0) newX = 0;
-      if (newX + 307 > parentWidth) newX = parentWidth - 307;
-
-      // Ensure the overlay doesn't go beyond the vertical boundaries
-      if (newY < 0) newY = 0;
-      if (newY + 307 > parentHeight) newY = parentHeight - 307;
+      if (newX + VIDEO_PLAYER_HEIGHT > VIDEO_PLAYER_WIDTH) newX = VIDEO_PLAYER_WIDTH - VIDEO_PLAYER_HEIGHT;
 
       setPosition({ x: newX, y: newY });
     }
@@ -45,10 +42,10 @@ const VideoPlayer = () => {
   };
 
   useEffect(() => {
-    const initialX = (parentWidth - 307) / 2;
-    const initialY = (parentHeight - 307) / 2;
+    const initialX = (VIDEO_PLAYER_WIDTH - VIDEO_PLAYER_HEIGHT) / 2;
+    const initialY = 0;
     setPosition({ x: initialX, y: initialY });
-  }, [parentWidth, parentHeight]);
+  }, [VIDEO_PLAYER_WIDTH, VIDEO_PLAYER_HEIGHT]);
 
   // move to draggable
 
@@ -61,7 +58,7 @@ const VideoPlayer = () => {
           loop={true}
           onEnded={() => {}}
           onProgress={() => {}}
-          height={307}
+          height={VIDEO_PLAYER_HEIGHT}
           width={"auto"}
           url={
             "https://cdn.loom.com/sessions/thumbnails/313bf71d20ca47b2a35b6634cefdb761-00001.mp4"

@@ -9,9 +9,7 @@ import {
   DropdownListItem,
 } from "./styles";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-
-const RESOLUTIONS = ["0.5x", "1x", "1.5x", "2x"];
-const ASPECT_RATIO = ["9:18", "9:16", "4:3", "3:4", "1:1", "4:5"];
+import { RESOLUTIONS, ASPECT_RATIO } from "constants/index";
 
 const DropdownOptions = () => {
   const [selectedResolution, setSelectedResolution] = useState("1x");
