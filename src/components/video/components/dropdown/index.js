@@ -14,8 +14,9 @@ import { RESOLUTIONS, ASPECT_RATIO } from "constants/index";
 const DropdownOptions = ({
   selectedAspectRatio,
   setSelectedAspectRatio,
+  selectedResolution,
+  setSelectedResolution,
 }) => {
-  const [selectedResolution, setSelectedResolution] = useState("1x");
   const [isResolutionDropdownVisible, setIsResolutionDropdownVisible] =
     useState(false);
   const [isAspectRatioDropdownVisible, setIsAspectRatioDropdownVisible] =

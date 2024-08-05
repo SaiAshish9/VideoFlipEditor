@@ -25,7 +25,7 @@ export const Button = styled.div`
   font-weight: 500;
   cursor: pointer;
   margin-right: 10px;
-  opacity: ${({ selected }) => (selected ? "1" : "0.5")};
+  opacity: ${({ active }) => (active ? "1" : "0.5")};
 `;
 
 export const ButtonContainer = styled.div`

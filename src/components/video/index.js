@@ -17,6 +17,11 @@ const VideoPlayer = React.forwardRef(
       previewImage,
       videoBlobUrl,
       setVideoBlobUrl,
+      isStartCropperClicked,
+      isPlaying,
+      setIsPlaying,
+      isStreamStarted,
+      setIsStreamStarted,
     },
     refs
   ) => {
@@ -26,11 +31,11 @@ const VideoPlayer = React.forwardRef(
     const [dragging, setDragging] = useState(false);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
     const [selectedAspectRatio, setSelectedAspectRatio] = useState("1:1");
-    const [isStreamStarted, setIsStreamStarted] = useState(false);
-    const [isPlaying, setIsPlaying] = useState(false);
     const [duration, setDuration] = useState(null);
     const [progress, setProgress] = useState(0);
     const progressBarRef = useRef();
+    const [playbackRate, setPlaybackRate] = useState(1.0);
+    const [selectedResolution, setSelectedResolution] = useState("1x");
 
     const captureFrame = () => {
       if (
@@ -120,7 +125,7 @@ const VideoPlayer = React.forwardRef(
     }, [selectedAspectRatio]);
 
     function handleProgress(value) {
-      if (isStreamStarted) {
+      if (isStreamStarted && isStartCropperClicked) {
         captureFrame();
       }
       progressBarRef.current?.setProgressBarValue(
@@ -146,6 +151,17 @@ const VideoPlayer = React.forwardRef(
       ref.current?.seekTo(p);
     }
 
+    useEffect(() => {
+      if (!isStartCropperClicked) {
+        setPreviewImage("Empty");
+        setIsPlaying(false);
+      }
+    }, [isStartCropperClicked]);
+
+    useEffect(() => {
+      setPlaybackRate(parseFloat(selectedResolution.split("x")[0]).toFixed(1));
+    }, [selectedResolution]);
+
     return (
       <VideoContainer>
         <VideoContent>
@@ -157,6 +173,7 @@ const VideoPlayer = React.forwardRef(
             onProgress={handleProgress}
             onDuration={handleDuration}
             height={VIDEO_PLAYER_HEIGHT}
+            playbackRate={+playbackRate}
             width={"auto"}
             url={
               "https://cdn.pixabay.com/video/2020/01/05/30902-383991325_large.mp4"
@@ -171,17 +188,19 @@ const VideoPlayer = React.forwardRef(
             }}
             onStart={handleStart}
           />
-          <Overlay
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            left={`${position.x}px`}
-            width={playerWidth}
-          >
-            {[...Array(9)].map((_, i) => (
-              <GridCell key={i} width={playerWidth} />
-            ))}
-          </Overlay>
+          {isStartCropperClicked && (
+            <Overlay
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              left={`${position.x}px`}
+              width={playerWidth}
+            >
+              {[...Array(9)].map((_, i) => (
+                <GridCell key={i} width={playerWidth} />
+              ))}
+            </Overlay>
+          )}
         </VideoContent>
         <VideoControls
           duration={duration}
@@ -195,6 +214,8 @@ const VideoPlayer = React.forwardRef(
         <DropdownOptions
           selectedAspectRatio={selectedAspectRatio}
           setSelectedAspectRatio={setSelectedAspectRatio}
+          selectedResolution={selectedResolution}
+          setSelectedResolution={setSelectedResolution}
         />
       </VideoContainer>
     );

@@ -9,6 +9,12 @@ const App = () => {
   const [playerWidth, setPlayerWidth] = useState(VIDEO_PLAYER_HEIGHT || 307);
   const [videoBlobUrl, setVideoBlobUrl] = useState(null);
   const combinedRefs = useRef({});
+  const [isStartCropperClicked, setIsStartCropperClicked] = useState(false);
+  const [isRemoveCropperClicked, setIsRemoveCropperClicked] = useState(false);
+  const [isGeneratePreviewClicked, setIsGeneratePreviewClicked] =
+    useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isStreamStarted, setIsStreamStarted] = useState(false);
 
   return (
     <Container>
@@ -22,15 +28,30 @@ const App = () => {
           previewImage={previewImage}
           setVideoBlobUrl={setVideoBlobUrl}
           videoBlobUrl={videoBlobUrl}
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          isStartCropperClicked={isStartCropperClicked}
+          isStreamStarted={isStreamStarted}
+          setIsStreamStarted={setIsStreamStarted}
         />
         <Preview
           playerWidth={playerWidth}
           ref={combinedRefs}
+          isStartCropperClicked={isStartCropperClicked}
           previewImage={previewImage}
+          isPlaying={isPlaying}
           videoBlobUrl={videoBlobUrl}
+          isStreamStarted={isStreamStarted}
         />
       </Content>
-      <Footer />
+      <Footer
+        isStartCropperClicked={isStartCropperClicked}
+        setIsStartCropperClicked={setIsStartCropperClicked}
+        isRemoveCropperClicked={isRemoveCropperClicked}
+        isGeneratePreviewClicked={isGeneratePreviewClicked}
+        setIsRemoveCropperClicked={setIsRemoveCropperClicked}
+        setIsGeneratePreviewClicked={setIsGeneratePreviewClicked}
+      />
     </Container>
   );
 };

@@ -4,7 +4,7 @@ import { PreviewThumbnailContainer } from "./components";
 import { VIDEO_PLAYER_HEIGHT, VIDEO_PLAYER_WIDTH } from "constants/index";
 
 const PreviewContainer = React.forwardRef(
-  ({ previewImage, playerWidth, videoBlobUrl }, ref) => {
+  ({ previewImage, playerWidth, isStartCropperClicked }, ref) => {
     const previewRef1 = useRef(null);
     const canvasRef1 = useRef(null);
 
@@ -17,7 +17,11 @@ const PreviewContainer = React.forwardRef(
       <Container>
         <PreviewText>Preview</PreviewText>
         <div style={{ height: "0.5rem" }} />
-        {!previewImage ? <PreviewThumbnailContainer /> : <></>}
+        {!(isStartCropperClicked) ? (
+          <PreviewThumbnailContainer />
+        ) : (
+          <></>
+        )}
 
         <PreviewImg
           alt="img"
