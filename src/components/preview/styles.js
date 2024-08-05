@@ -1,3 +1,4 @@
+import { VIDEO_PLAYER_HEIGHT } from "constants/index";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -19,6 +20,6 @@ export const PreviewText = styled.p`
 `;
 
 export const PreviewImg = styled.img`
-  height: 307px;
-  width: fit-content;
+  height: ${VIDEO_PLAYER_HEIGHT}px;
+  width: ${({ width }) => width}px;
 `;

@@ -1,23 +1,51 @@
-import React, { useState } from "react";
+import React, { useImperativeHandle, useRef } from "react";
 import { Container, PreviewImg, PreviewText } from "./styles";
 import { PreviewThumbnailContainer } from "./components";
+import { VIDEO_PLAYER_HEIGHT, VIDEO_PLAYER_WIDTH } from "constants/index";
 
-const PreviewContainer = () => {
-  const [isPreviewVisible, setIsPreviewVisible] = useState(false);
+const PreviewContainer = React.forwardRef(
+  ({ previewImage, playerWidth, videoBlobUrl }, ref) => {
+    const previewRef1 = useRef(null);
+    const canvasRef1 = useRef(null);
 
-  return (
-    <Container>
-      <PreviewText>Preview</PreviewText>
-      {!isPreviewVisible ? (
-        <PreviewThumbnailContainer />
-      ) : (
+    useImperativeHandle(ref, () => ({
+      canvasRef: canvasRef1.current,
+      previewRef: previewRef1.current,
+    }));
+
+    return (
+      <Container>
+        <PreviewText>Preview</PreviewText>
+        <div style={{ height: "0.5rem" }} />
+        {!previewImage ? <PreviewThumbnailContainer /> : <></>}
+
         <PreviewImg
           alt="img"
-          src="https://cdn.pixabay.com/photo/2024/07/30/03/34/soccer-8931123_1280.jpg"
+          style={{
+            display:
+              !previewImage || previewImage === "Empty" ? "none" : "block",
+          }}
+          ref={previewRef1}
+          width={playerWidth}
+          src={previewImage}
         />
-      )}
-    </Container>
-  );
-};
+        {/* <video
+          ref={previewRef1}
+          autoPlay
+          width={playerWidth}
+          height={VIDEO_PLAYER_HEIGHT}
+        >
+          <source src="" type="video/mp4" />
+        </video> */}
+        <canvas
+          ref={canvasRef1}
+          style={{ display: "none" }}
+          width={VIDEO_PLAYER_WIDTH}
+          height={VIDEO_PLAYER_HEIGHT}
+        />
+      </Container>
+    );
+  }
+);
 
 export default PreviewContainer;

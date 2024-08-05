@@ -8,6 +8,13 @@ const genericStyles = css`
     font-optical-sizing: auto;
     font-style: normal;
   }
+  canvas,
+  img {
+    overflow: visible !important;
+  }
+  canvas, img {
+    overflow-clip-margin: border-box; /* or 'padding-box', 'content-box', or 'initial' */
+  }
 `;
 
 const GlobalStyles = createGlobalStyle`
