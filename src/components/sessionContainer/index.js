@@ -11,7 +11,6 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const SessionContainer = ({
   setCurrentFrame,
   recordedData,
-  selectedHeaderItem,
 }) => {
   const ref = useRef();
   const [overlayLeftPosition, setOverlayLeftPosition] = useState(0);
@@ -23,21 +22,22 @@ const SessionContainer = ({
   const onStart = async () => {
     setIsPlaying(true);
     for (let index = 0; index < recordedData.length; index++) {
+      setCurrentFrame(index + 1);
       const item = recordedData[index];
-      ref?.current.seekTo(item.timeStamp);
+      ref?.current?.seekTo(item.timeStamp);
       setOverlayLeftPosition(item.coordinates[0]);
       setPlayerWidth(item.coordinates[2]);
       setVolume(item.volume);
       setPlaybackRate(+item.playbackRate);
       setTimeout(() => {}, 1000);
       setIsPlaying(false);
-      await sleep(1000); // Delay of 1 second
+      await sleep(1000);
     }
   };
 
   useEffect(() => {
-    if (selectedHeaderItem === TABS[1].title) onStart();
-  }, [selectedHeaderItem]);
+    onStart();
+  }, []);
 
   return (
     <Container>

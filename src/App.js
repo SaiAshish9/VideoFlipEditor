@@ -1,5 +1,10 @@
 import React, { useRef, useState } from "react";
-import { Container, Content, SessionContainer } from "./styles";
+import {
+  Container,
+  Content,
+  SessionContainer,
+  SessionParentContainer,
+} from "./styles";
 import {
   Header,
   Footer,
@@ -10,6 +15,7 @@ import {
 import { VIDEO_PLAYER_HEIGHT, TABS } from "constants/index";
 import "antd/dist/reset.css";
 import { VideoContent } from "components/video/styles";
+import { PreviewText } from "components/preview/styles";
 
 const App = () => {
   const [previewImage, setPreviewImage] = useState(null);
@@ -76,7 +82,7 @@ const App = () => {
       ) : (
         <SessionContainer>
           {recordedData?.length > 0 && (
-            <>
+            <Content>
               <VideoContent>
                 <SessionContent
                   selectedHeaderItem={selectedHeaderItem}
@@ -85,11 +91,20 @@ const App = () => {
                   recordedData={recordedData}
                 />
               </VideoContent>
-              <pre>
-                <p>Frames: </p> <br />
-                <code>{JSON.stringify(recordedData, null, 2)}</code>
-              </pre>
-            </>
+              <SessionParentContainer>
+                <PreviewText>
+                  Frame {currentFrame} Out Of {recordedData.length} Recorded
+                  Frames:{" "}
+                </PreviewText>
+                <pre>
+                  {" "}
+                  <br />
+                  <code>
+                    {JSON.stringify(recordedData[currentFrame - 1], null, 2)}
+                  </code>
+                </pre>
+              </SessionParentContainer>
+            </Content>
           )}
         </SessionContainer>
       )}

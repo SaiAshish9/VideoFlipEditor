@@ -17,9 +17,8 @@ export const Content = styled.div`
 export const SessionContainer = styled.div`
   pre {
     color: #fff;
-    height: 80vh;
     overflow-y: scroll;
-    margin-left: 5rem;
+    margin-left: 1.5rem;
     margin-top: 0;
     text-align: start;
     &::-webkit-scrollbar {
@@ -31,7 +30,14 @@ export const SessionContainer = styled.div`
     }
   }
   padding-left: 1.5rem;
+  padding-top: 0.5rem;
+`;
+
+export const SessionParentContainer = styled.div`
   display: flex;
-  align-items: flex-start;
+  text-align: center;
+  align-items: center;
   justify-content: flex-start;
+  flex-direction: column;
+  width: 60vw;
 `;
