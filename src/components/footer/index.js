@@ -11,6 +11,7 @@ const Footer = ({
   isGeneratePreviewClicked,
   setIsRemoveCropperClicked,
   setIsGeneratePreviewClicked,
+  recordedData,
 }) => {
   const [selected, setSelected] = useState(null);
 
@@ -24,20 +25,7 @@ const Footer = ({
       setIsStartCropperClicked(false);
       setIsRemoveCropperClicked(true);
     } else if (text === OPTIONS[2]) {
-      generateJSON([
-        {
-          timeStamp: 0,
-          coordinates: [0, 0, 31.640625, 100],
-          volume: 0.5,
-          playbackRate: 1.0,
-        },
-        {
-          timeStamp: 5,
-          coordinates: [10, 10, 41.640625, 110],
-          volume: 0.5,
-          playbackRate: 1.0,
-        },
-      ]);
+      generateJSON(recordedData);
       setIsStartCropperClicked(false);
       setIsGeneratePreviewClicked(true);
     }

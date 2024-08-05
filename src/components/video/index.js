@@ -22,6 +22,8 @@ const VideoPlayer = React.forwardRef(
       setIsPlaying,
       isStreamStarted,
       setIsStreamStarted,
+      recordedData,
+      setRecordedData,
     },
     refs
   ) => {
@@ -128,6 +130,16 @@ const VideoPlayer = React.forwardRef(
     function handleProgress(value) {
       if (isStreamStarted && isStartCropperClicked) {
         captureFrame();
+        const data = recordedData.slice();
+        setRecordedData([
+          ...data,
+          {
+            timeStamp: progress * duration,
+            coordinates: [position.x, 0, playerWidth, VIDEO_PLAYER_HEIGHT],
+            volume,
+            playbackRate,
+          },
+        ]);
       }
       progressBarRef?.current?.setProgressBarValue(
         value.playedSeconds / duration

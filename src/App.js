@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
-import { Container, Content } from "./styles";
+import { Container, Content, SessionContainer } from "./styles";
 import { Header, Footer, VideoPlayer, Preview } from "components";
 import { VIDEO_PLAYER_HEIGHT, TABS } from "constants/index";
 import "antd/dist/reset.css";
+import { VideoContent } from "components/video/styles";
 
 const App = () => {
   const [previewImage, setPreviewImage] = useState(null);
@@ -16,6 +17,8 @@ const App = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isStreamStarted, setIsStreamStarted] = useState(false);
   const [selectedHeaderItem, setSelectedHeaderItem] = useState(TABS[0].title);
+  const [recordedData, setRecordedData] = useState([]);
+  // https://raw.githubusercontent.com/SaiAshish9/VideoFlipEditor-Assets/main/data.json
 
   return (
     <Container>
@@ -23,7 +26,7 @@ const App = () => {
         selected={selectedHeaderItem}
         setSelected={setSelectedHeaderItem}
       />
-      {selectedHeaderItem === TABS[0].title && (
+      {selectedHeaderItem === TABS[0].title ? (
         <>
           <Content>
             <VideoPlayer
@@ -38,6 +41,8 @@ const App = () => {
               setIsPlaying={setIsPlaying}
               isStartCropperClicked={isStartCropperClicked}
               isStreamStarted={isStreamStarted}
+              recordedData={recordedData}
+              setRecordedData={setRecordedData}
               setIsStreamStarted={setIsStreamStarted}
             />
             <Preview
@@ -57,8 +62,20 @@ const App = () => {
             isGeneratePreviewClicked={isGeneratePreviewClicked}
             setIsRemoveCropperClicked={setIsRemoveCropperClicked}
             setIsGeneratePreviewClicked={setIsGeneratePreviewClicked}
+            recordedData={recordedData}
+            setRecordedData={setRecordedData}
           />
         </>
+      ) : (
+        <SessionContainer>
+          <VideoContent />
+          {recordedData?.length > 0 && (
+            <pre>
+              <p>Data: </p> <br />
+              <code>{JSON.stringify(recordedData, null, 2)}</code>
+            </pre>
+          )}
+        </SessionContainer>
       )}
     </Container>
   );

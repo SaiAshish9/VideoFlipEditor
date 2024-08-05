@@ -13,3 +13,24 @@ export const Content = styled.div`
   align-items: flex-start;
   justify-content: space-between;
 `;
+
+export const SessionContainer = styled.div`
+  pre {
+    color: #fff;
+    width: 80vh;
+    overflow-y: scroll;
+    margin-left: 2rem;
+    margin-top: 0;
+  }
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+  }
+  padding-left: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+`;
