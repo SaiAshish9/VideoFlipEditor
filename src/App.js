@@ -68,12 +68,14 @@ const App = () => {
         </>
       ) : (
         <SessionContainer>
-          <VideoContent />
           {recordedData?.length > 0 && (
-            <pre>
-              <p>Data: </p> <br />
-              <code>{JSON.stringify(recordedData, null, 2)}</code>
-            </pre>
+            <>
+              <VideoContent />
+              <pre>
+                <p>Data: </p> <br />
+                <code>{JSON.stringify(recordedData, null, 2)}</code>
+              </pre>
+            </>
           )}
         </SessionContainer>
       )}
