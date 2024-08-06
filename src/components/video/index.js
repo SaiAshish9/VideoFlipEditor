@@ -6,6 +6,7 @@ import {
   VIDEO_PLAYER_WIDTH,
   VIDEO_PLAYER_HEIGHT,
   RESOLVED_VIDEO_WIDTH,
+  VIDEO_URL,
 } from "constants/index";
 
 const VideoPlayer = React.forwardRef(
@@ -192,9 +193,7 @@ const VideoPlayer = React.forwardRef(
             height={VIDEO_PLAYER_HEIGHT}
             playbackRate={+playbackRate}
             width={"auto"}
-            url={
-              "https://cdn.pixabay.com/video/2020/01/05/30902-383991325_large.mp4"
-            }
+            url={VIDEO_URL}
             playing={isPlaying}
             config={{
               file: {

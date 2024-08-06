@@ -4,14 +4,11 @@ import { VideoContent } from "components/video/styles";
 import ReactPlayer from "react-player";
 import { Overlay } from "components/video/styles";
 import { GridCell } from "components/video/styles";
-import { VIDEO_PLAYER_HEIGHT, TABS } from "constants/index";
+import { VIDEO_PLAYER_HEIGHT, VIDEO_URL } from "constants/index";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const SessionContainer = ({
-  setCurrentFrame,
-  recordedData,
-}) => {
+const SessionContainer = ({ setCurrentFrame, recordedData }) => {
   const ref = useRef();
   const [overlayLeftPosition, setOverlayLeftPosition] = useState(0);
   const [volume, setVolume] = useState(volume);
@@ -51,9 +48,7 @@ const SessionContainer = ({
           height={VIDEO_PLAYER_HEIGHT}
           playbackRate={+playbackRate}
           width={"auto"}
-          url={
-            "https://cdn.pixabay.com/video/2020/01/05/30902-383991325_large.mp4"
-          }
+          url={VIDEO_URL}
           playing={isPlaying}
           config={{
             file: {
