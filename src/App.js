@@ -30,7 +30,6 @@ const App = () => {
   const [isStreamStarted, setIsStreamStarted] = useState(false);
   const [selectedHeaderItem, setSelectedHeaderItem] = useState(TABS[0].title);
   const [recordedData, setRecordedData] = useState([]);
-  // https://raw.githubusercontent.com/SaiAshish9/VideoFlipEditor-Assets/main/data.json
   const [currentFrame, setCurrentFrame] = useState(0);
 
   return (
@@ -97,8 +96,6 @@ const App = () => {
                   Frames:{" "}
                 </PreviewText>
                 <pre>
-                  {" "}
-                  <br />
                   <code>
                     {JSON.stringify(recordedData[currentFrame - 1], null, 2)}
                   </code>
