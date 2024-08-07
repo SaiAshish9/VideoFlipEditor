@@ -17,8 +17,9 @@ const SessionContainer = ({ setCurrentFrame, recordedData }) => {
   const [isPlaying, setIsPlaying] = useState(true);
 
   const onStart = async () => {
-    setIsPlaying(true);
+    setVolume(0);
     for (let index = 0; index < recordedData.length; index++) {
+      setIsPlaying(true);
       setCurrentFrame(index + 1);
       const item = recordedData[index];
       ref?.current?.seekTo(item.timeStamp);
@@ -27,8 +28,8 @@ const SessionContainer = ({ setCurrentFrame, recordedData }) => {
       setVolume(item.volume);
       setPlaybackRate(+item.playbackRate);
       setTimeout(() => {}, 1000);
-      setIsPlaying(false);
       await sleep(1000);
+      setIsPlaying(false);
     }
   };
 
@@ -36,12 +37,14 @@ const SessionContainer = ({ setCurrentFrame, recordedData }) => {
     onStart();
   }, []);
 
+  console.log({ recordedData });
+
   return (
     <Container>
       <VideoContent>
         <ReactPlayer
           ref={ref}
-          volume={volume}
+          muted={false}
           loop={false}
           onEnded={() => {}}
           onProgress={() => {}}
