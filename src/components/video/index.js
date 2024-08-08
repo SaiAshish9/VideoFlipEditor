@@ -234,7 +234,7 @@ const VideoPlayer = React.forwardRef(
     }, [selectedAspectRatio]);
 
     useEffect(() => {
-      if (isStreamStarted && isStartCropperClicked && currentRecordedData) {
+      if (isPlaying && isStartCropperClicked && currentRecordedData) {
         setCurrentRecordedData({
           ...currentRecordedData,
           playbackRate: parseFloat(selectedResolution.split("x")[0]).toFixed(1),
