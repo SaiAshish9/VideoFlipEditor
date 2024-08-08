@@ -81,6 +81,8 @@ const App = () => {
             setIsGeneratePreviewClicked={setIsGeneratePreviewClicked}
             recordedData={recordedData}
             setRecordedData={setRecordedData}
+            currentRecordedData={currentRecordedData}
+            setCurrentRecordedData={setCurrentRecordedData}
           />
         </>
       ) : (

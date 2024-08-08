@@ -12,6 +12,8 @@ const Footer = ({
   setIsRemoveCropperClicked,
   setIsGeneratePreviewClicked,
   recordedData,
+  currentRecordedData,
+  setCurrentRecordedData,
 }) => {
   const [selected, setSelected] = useState(null);
 
@@ -24,10 +26,12 @@ const Footer = ({
     } else if (text === OPTIONS[1]) {
       setIsStartCropperClicked(false);
       setIsRemoveCropperClicked(true);
+      setCurrentRecordedData(null);
     } else if (text === OPTIONS[2]) {
       generateJSON(recordedData);
       setIsStartCropperClicked(false);
       setIsGeneratePreviewClicked(true);
+      setCurrentRecordedData(null);
     }
   }
 
