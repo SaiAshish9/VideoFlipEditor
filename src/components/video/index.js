@@ -183,10 +183,12 @@ const VideoPlayer = React.forwardRef(
     function onEnded() {
       setIsStreamStarted(false);
       setIsPlaying(false);
-      setCurrentRecordedData({
-        ...currentRecordedData,
-        isPlaying: false,
-      });
+      setTimeout(() => {
+        setCurrentRecordedData({
+          ...currentRecordedData,
+          isPlaying: false,
+        });
+      }, 500);
     }
 
     const handleDuration = (duration) => {
