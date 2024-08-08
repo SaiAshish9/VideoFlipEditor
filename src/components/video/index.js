@@ -85,6 +85,21 @@ const VideoPlayer = React.forwardRef(
         x: e.clientX - position.x,
         y: e.clientY - position.y,
       });
+      if (
+        isStartCropperClicked &&
+        currentRecordedData !== null &&
+        Object.keys(currentRecordedData).length > 0 &&
+        isPlaying
+      ) {
+        setCurrentRecordedData({
+          timeStamp: progress * duration,
+          coordinates: [position.x, 0, playerWidth, VIDEO_PLAYER_HEIGHT],
+          volume,
+          playbackRate: +playbackRate,
+          isPlaying,
+          playerWidth,
+        });
+      }
       document.body.style.cursor = "grabbing";
     };
 
