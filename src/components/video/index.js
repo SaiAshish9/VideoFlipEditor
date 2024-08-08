@@ -99,7 +99,11 @@ const VideoPlayer = React.forwardRef(
           newX = VIDEO_PLAYER_WIDTH - playerWidth;
 
         setPosition({ x: newX, y: newY });
-        if (isStartCropperClicked && currentRecordedData !== null) {
+        if (
+          isStartCropperClicked &&
+          currentRecordedData !== null &&
+          Object.keys(currentRecordedData).length > 0
+        ) {
           setCurrentRecordedData({
             timeStamp: progress * duration,
             coordinates: [newX, 0, playerWidth, VIDEO_PLAYER_HEIGHT],
@@ -108,6 +112,8 @@ const VideoPlayer = React.forwardRef(
             isPlaying,
             playerWidth,
           });
+        } else if (isStreamStarted && isStartCropperClicked) {
+          setCurrentRecordedData({});
         }
       }
     };
@@ -125,7 +131,7 @@ const VideoPlayer = React.forwardRef(
     }, [playerWidth, VIDEO_PLAYER_HEIGHT]);
 
     function handleProgress(value) {
-      if (isStreamStarted && isStartCropperClicked) {
+      if (isPlaying && isStartCropperClicked) {
         captureFrame();
         const data = recordedData.slice();
         if (isPlaying) {
@@ -209,6 +215,9 @@ const VideoPlayer = React.forwardRef(
     }, [isStartCropperClicked]);
 
     const handleAspectRatioChange = useCallback(() => {
+      if (currentRecordedData !== null) {
+        setCurrentRecordedData({});
+      }
       if (previewImage) {
         setPreviewImage("Empty");
       }
@@ -218,9 +227,6 @@ const VideoPlayer = React.forwardRef(
 
       if (isStreamStarted) setIsPlaying(false);
       setPlayerWidth(RESOLVED_VIDEO_WIDTH(selectedAspectRatio));
-      if (isStreamStarted && isStartCropperClicked && currentRecordedData) {
-        setCurrentRecordedData({});
-      }
     }, [selectedAspectRatio]);
 
     useEffect(() => {
