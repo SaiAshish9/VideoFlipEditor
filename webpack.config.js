@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -46,7 +46,6 @@ module.exports = {
   devServer: {
     hot: true,
     liveReload: true,
-    devtool: false,
     static: {
       directory: path.join(__dirname, "public"),
     },

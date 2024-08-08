@@ -37,14 +37,13 @@ const SessionContainer = ({ setCurrentFrame, recordedData }) => {
     onStart();
   }, []);
 
-  console.log({ recordedData });
-
   return (
     <Container>
       <VideoContent>
         <ReactPlayer
           ref={ref}
           muted={false}
+          volume={volume}
           loop={false}
           onEnded={() => {}}
           onProgress={() => {}}

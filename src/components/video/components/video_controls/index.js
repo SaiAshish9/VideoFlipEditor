@@ -16,6 +16,7 @@ import PlayImg from "assets/play.svg";
 import SoundImg from "assets/sound.svg";
 import { IoIosPause } from "react-icons/io";
 import moment from "moment";
+import { VIDEO_PLAYER_HEIGHT } from "constants";
 
 const VideoControls = React.forwardRef(
   (
@@ -28,13 +29,54 @@ const VideoControls = React.forwardRef(
       setProgress,
       setVolume,
       volume,
+      position,
+      playerWidth,
       onVolumeChange,
+      setCurrentRecordedData,
+      currentRecordedData,
+      isStartCropperClicked,
+      isStreamStarted,
+      playbackRate,
     },
     ref
   ) => {
     function handleClick(e) {
       e.preventDefault();
       e.stopPropagation();
+
+      if (isStreamStarted && isStartCropperClicked) {
+        setCurrentRecordedData({
+          timeStamp: progress * duration,
+          coordinates: [position.x, 0, playerWidth, VIDEO_PLAYER_HEIGHT],
+          volume,
+          playbackRate: +playbackRate,
+          isPlaying: !isPlaying,
+          playerWidth,
+        });
+      } else if (isStreamStarted) {
+        if (!isStartCropperClicked && currentRecordedData) {
+          setCurrentRecordedData({
+            timeStamp: progress * duration,
+            coordinates: [position.x, 0, playerWidth, VIDEO_PLAYER_HEIGHT],
+            volume,
+            playbackRate: +playbackRate,
+            isPlaying: false,
+            playerWidth,
+          });
+        }
+      }
+      if (!isPlaying) {
+        if (isStartCropperClicked) {
+          setCurrentRecordedData({
+            timeStamp: progress * duration,
+            coordinates: [position.x, 0, playerWidth, VIDEO_PLAYER_HEIGHT],
+            volume,
+            playbackRate: +playbackRate,
+            isPlaying: !isPlaying,
+            playerWidth,
+          });
+        }
+      }
       setIsPlaying((p) => !p);
     }
 
@@ -83,26 +125,25 @@ const VideoControls = React.forwardRef(
             tooltip={{ formatter: null }}
           />
         </SliderContainer>
-        {
-          <ControlsContainer>
-            <TimelineTextContainer>
-              <CurrentTimelineText>
-                {formatDuration(duration * progress)}
-              </CurrentTimelineText>
-              <TotalTimeDuration>{formatDuration(duration)}</TotalTimeDuration>
-            </TimelineTextContainer>
-            <SoundContainer>
-              <SoundIcon alt="img" src={SoundImg} />
-              <MuteSlider
-                max={1}
-                value={volume}
-                tooltip={{ formatter: null }}
-                onChange={onVolumeChange}
-                step={0.1}
-              />
-            </SoundContainer>
-          </ControlsContainer>
-        }
+
+        <ControlsContainer>
+          <TimelineTextContainer>
+            <CurrentTimelineText>
+              {formatDuration(duration * progress)}
+            </CurrentTimelineText>
+            <TotalTimeDuration>{formatDuration(duration)}</TotalTimeDuration>
+          </TimelineTextContainer>
+          <SoundContainer>
+            <SoundIcon alt="img" src={SoundImg} />
+            <MuteSlider
+              max={1}
+              value={volume}
+              tooltip={{ formatter: null }}
+              onChange={onVolumeChange}
+              step={0.1}
+            />
+          </SoundContainer>
+        </ControlsContainer>
       </Container>
     );
   }

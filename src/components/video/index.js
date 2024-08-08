@@ -25,6 +25,8 @@ const VideoPlayer = React.forwardRef(
       setIsStreamStarted,
       recordedData,
       setRecordedData,
+      currentRecordedData,
+      setCurrentRecordedData,
     },
     refs
   ) => {
@@ -97,6 +99,16 @@ const VideoPlayer = React.forwardRef(
           newX = VIDEO_PLAYER_WIDTH - playerWidth;
 
         setPosition({ x: newX, y: newY });
+        if (isStartCropperClicked && currentRecordedData !== null) {
+          setCurrentRecordedData({
+            timeStamp: progress * duration,
+            coordinates: [newX, 0, playerWidth, VIDEO_PLAYER_HEIGHT],
+            volume,
+            playbackRate: +playbackRate,
+            isPlaying,
+            playerWidth,
+          });
+        }
       }
     };
 
@@ -112,39 +124,34 @@ const VideoPlayer = React.forwardRef(
       setPosition({ x: initialX, y: initialY });
     }, [playerWidth, VIDEO_PLAYER_HEIGHT]);
 
-    const handleAspectRatioChange = useCallback(() => {
-      if (previewImage) {
-        setPreviewImage("Empty");
-      }
-      if (videoBlobUrl) {
-        setVideoBlobUrl("Empty");
-      }
-
-      if (isStreamStarted) setIsPlaying(false);
-      setPlayerWidth(RESOLVED_VIDEO_WIDTH(selectedAspectRatio));
-    }, [selectedAspectRatio]);
-
-    useEffect(() => {
-      handleAspectRatioChange();
-    }, [selectedAspectRatio]);
-
     function handleProgress(value) {
       if (isStreamStarted && isStartCropperClicked) {
         captureFrame();
         const data = recordedData.slice();
-        setRecordedData([
-          ...data,
-          {
-            timeStamp: progress * duration,
-            coordinates: [position.x, 0, playerWidth, VIDEO_PLAYER_HEIGHT],
-            volume,
-            playbackRate,
-          },
-        ]);
+        if (isPlaying) {
+          setRecordedData([
+            ...data,
+            {
+              timeStamp: progress * duration,
+              coordinates: [position.x, 0, playerWidth, VIDEO_PLAYER_HEIGHT],
+              volume,
+              playbackRate,
+            },
+          ]);
+        }
+        setCurrentRecordedData({
+          timeStamp: progress * duration,
+          coordinates: [position.x, 0, playerWidth, VIDEO_PLAYER_HEIGHT],
+          volume,
+          playbackRate: +playbackRate,
+          playerWidth,
+          isPlaying,
+        });
       }
       progressBarRef?.current?.setProgressBarValue(
         value.playedSeconds / duration
       );
+      setIsStreamStarted(true);
     }
 
     function handleStart() {
@@ -155,6 +162,10 @@ const VideoPlayer = React.forwardRef(
     function onEnded() {
       setIsStreamStarted(false);
       setIsPlaying(false);
+      setCurrentRecordedData({
+        ...currentRecordedData,
+        isPlaying: false,
+      });
     }
 
     const handleDuration = (duration) => {
@@ -163,6 +174,19 @@ const VideoPlayer = React.forwardRef(
 
     function onSliderChange(p) {
       ref.current?.seekTo(p);
+      if (refs && refs.current.videoRef) {
+        refs.current.videoRef.seekTo(p);
+      }
+      if (isStartCropperClicked && currentRecordedData !== null) {
+        setCurrentRecordedData({
+          timeStamp: progress * duration,
+          coordinates: [position.x, 0, playerWidth, VIDEO_PLAYER_HEIGHT],
+          volume,
+          playbackRate: +playbackRate,
+          isPlaying: isPlaying,
+          playerWidth,
+        });
+      }
     }
 
     function onVolumeChange(p) {
@@ -173,10 +197,43 @@ const VideoPlayer = React.forwardRef(
       if (!isStartCropperClicked) {
         setPreviewImage("Empty");
         setIsPlaying(false);
+        if (currentRecordedData) {
+          setCurrentRecordedData({
+            ...currentRecordedData,
+            isPlaying: false,
+          });
+        } else {
+          setCurrentRecordedData(null);
+        }
       }
     }, [isStartCropperClicked]);
 
+    const handleAspectRatioChange = useCallback(() => {
+      if (previewImage) {
+        setPreviewImage("Empty");
+      }
+      if (videoBlobUrl) {
+        setVideoBlobUrl("Empty");
+      }
+
+      if (isStreamStarted) setIsPlaying(false);
+      setPlayerWidth(RESOLVED_VIDEO_WIDTH(selectedAspectRatio));
+      if (isStreamStarted && isStartCropperClicked && currentRecordedData) {
+        setCurrentRecordedData({});
+      }
+    }, [selectedAspectRatio]);
+
     useEffect(() => {
+      handleAspectRatioChange();
+    }, [selectedAspectRatio]);
+
+    useEffect(() => {
+      if (isStreamStarted && isStartCropperClicked && currentRecordedData) {
+        setCurrentRecordedData({
+          ...currentRecordedData,
+          playbackRate: parseFloat(selectedResolution.split("x")[0]).toFixed(1),
+        });
+      }
       setPlaybackRate(parseFloat(selectedResolution.split("x")[0]).toFixed(1));
     }, [selectedResolution]);
 
@@ -222,13 +279,20 @@ const VideoPlayer = React.forwardRef(
           duration={duration}
           setIsPlaying={setIsPlaying}
           isPlaying={isPlaying}
+          setCurrentRecordedData={setCurrentRecordedData}
+          currentRecordedData={currentRecordedData}
           progress={progress}
           onSliderChange={onSliderChange}
           ref={progressBarRef}
           setProgress={setProgress}
           volume={volume}
           setVolume={setVolume}
+          playbackRate={playbackRate}
+          position={position}
+          playerWidth={playerWidth}
           onVolumeChange={onVolumeChange}
+          isStartCropperClicked={isStartCropperClicked}
+          isStreamStarted={isStreamStarted}
         />
         <DropdownOptions
           selectedAspectRatio={selectedAspectRatio}

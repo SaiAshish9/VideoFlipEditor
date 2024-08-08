@@ -31,6 +31,7 @@ const App = () => {
   const [selectedHeaderItem, setSelectedHeaderItem] = useState(TABS[0].title);
   const [recordedData, setRecordedData] = useState([]);
   const [currentFrame, setCurrentFrame] = useState(0);
+  const [currentRecordedData, setCurrentRecordedData] = useState(null);
 
   return (
     <Container>
@@ -56,6 +57,8 @@ const App = () => {
               recordedData={recordedData}
               setRecordedData={setRecordedData}
               setIsStreamStarted={setIsStreamStarted}
+              currentRecordedData={currentRecordedData}
+              setCurrentRecordedData={setCurrentRecordedData}
             />
             <Preview
               playerWidth={playerWidth}
@@ -65,6 +68,8 @@ const App = () => {
               isPlaying={isPlaying}
               videoBlobUrl={videoBlobUrl}
               isStreamStarted={isStreamStarted}
+              currentRecordedData={currentRecordedData}
+              setCurrentRecordedData={setCurrentRecordedData}
             />
           </Content>
           <Footer
